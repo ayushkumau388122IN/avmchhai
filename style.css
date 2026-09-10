@@ -11,30 +11,45 @@ body {
     min-height: 100vh;
 }
 
-/* Top Header */
+/* TOP HEADER */
 .topbar {
     background: #063b82;
     color: white;
     padding: 18px 30px;
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.topbar .brand {
+.brand {
     font-size: 32px;
     font-weight: 900;
     letter-spacing: 2px;
 }
 
-/* Main Page */
-main {
-    min-height: calc(100vh - 130px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 20px;
+.tag {
+    font-size: 14px;
 }
 
-/* Welcome Box */
+/* MAIN */
+main {
+    min-height: calc(100vh - 130px);
+}
+
+/* PAGES */
+.page {
+    display: none;
+    min-height: calc(100vh - 130px);
+    padding: 40px 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.page.active {
+    display: flex;
+}
+
+/* WELCOME */
 .hero {
     width: 100%;
     max-width: 750px;
@@ -47,19 +62,19 @@ main {
 }
 
 .hero .small {
-    font-size: 22px;
+    font-size: 23px;
     margin-bottom: 8px;
 }
 
 .hero h1 {
-    font-size: 55px;
+    font-size: 58px;
     font-weight: 900;
-    letter-spacing: 3px;
+    letter-spacing: 4px;
     margin-bottom: 5px;
 }
 
 .hero h2 {
-    font-size: 32px;
+    font-size: 34px;
     margin-bottom: 20px;
 }
 
@@ -69,23 +84,173 @@ main {
     margin-bottom: 30px;
 }
 
-/* Button */
+/* CARDS */
+.card,
+.chat-card {
+    width: 100%;
+    max-width: 720px;
+    background: white;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 12px 35px rgba(24, 59, 106, 0.18);
+}
+
+.page-brand {
+    font-size: 28px;
+    font-weight: 900;
+    color: #0758b8;
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+}
+
+.card h2 {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.card p {
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* SAFETY RULES */
+.rules {
+    padding-left: 25px;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.rules li {
+    margin-bottom: 14px;
+}
+
+/* BUTTON */
 button {
     border: none;
-    background: white;
-    color: #0758b8;
-    padding: 14px 30px;
-    border-radius: 12px;
-    font-size: 17px;
+    border-radius: 10px;
+    background: #0868e8;
+    color: white;
+    padding: 13px 24px;
+    font-size: 16px;
     font-weight: bold;
     cursor: pointer;
 }
 
 button:hover {
-    transform: scale(1.03);
+    opacity: 0.9;
 }
 
-/* Footer */
+/* CHECKBOX */
+.card label {
+    display: block;
+    margin: 18px 0;
+}
+
+/* CHAT */
+.chat-head {
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.chat-head span {
+    float: right;
+    color: #159447;
+    font-size: 13px;
+}
+
+.notice {
+    background: #fff3c4;
+    padding: 13px;
+    border-radius: 10px;
+    margin: 15px 0;
+    line-height: 1.5;
+}
+
+/* MESSAGE AREA */
+.messages {
+    height: 300px;
+    overflow-y: auto;
+    padding: 18px 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+.msg {
+    max-width: 75%;
+    padding: 11px 15px;
+    border-radius: 15px;
+    margin: 9px 0;
+    line-height: 1.4;
+}
+
+.received {
+    background: #edf1f7;
+}
+
+.sent {
+    background: #0868e8;
+    color: white;
+    margin-left: auto;
+}
+
+/* MESSAGE BOX */
+.composer {
+    display: flex;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.composer input {
+    flex: 1;
+    border: 1px solid #b8c5d8;
+    border-radius: 10px;
+    padding: 13px;
+    font-size: 16px;
+    outline: none;
+}
+
+.composer input:focus {
+    border-color: #0868e8;
+}
+
+/* WARNING */
+.warning {
+    background: #ffe1e1;
+    color: #a40000;
+    padding: 13px;
+    border-radius: 10px;
+    margin: 12px 0;
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+.hidden {
+    display: none;
+}
+
+/* REPORT */
+.report-btn {
+    background: #d92d2d;
+    margin-top: 14px;
+}
+
+.card select {
+    width: 100%;
+    padding: 13px;
+    margin: 10px 0 20px;
+    border: 1px solid #b8c5d8;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+#reportStatus {
+    color: #159447;
+    font-weight: bold;
+    margin-top: 18px;
+}
+
+/* FOOTER */
 footer {
     background: #063b82;
     color: white;
@@ -94,11 +259,17 @@ footer {
     font-weight: bold;
 }
 
-/* Mobile */
+/* MOBILE */
 @media (max-width: 600px) {
 
-    .topbar .brand {
-        font-size: 25px;
+    .topbar {
+        flex-direction: column;
+        gap: 6px;
+        text-align: center;
+    }
+
+    .brand {
+        font-size: 27px;
     }
 
     .hero {
@@ -106,14 +277,27 @@ footer {
     }
 
     .hero h1 {
-        font-size: 40px;
+        font-size: 42px;
     }
 
     .hero h2 {
-        font-size: 26px;
+        font-size: 27px;
     }
 
     .hero p {
         font-size: 16px;
+    }
+
+    .card,
+    .chat-card {
+        padding: 23px;
+    }
+
+    .composer {
+        flex-direction: column;
+    }
+
+    .composer button {
+        width: 100%;
     }
 }
