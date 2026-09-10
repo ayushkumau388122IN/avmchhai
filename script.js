@@ -122,3 +122,20 @@ function showSafetyReminder() {
         "Do not share your address, school, phone number, password or OTP with unknown people."
     );
 }
+       function generateTestUID() {
+    const uid =
+        "AVM-" +
+        Date.now().toString(36).toUpperCase() +
+        "-" +
+        Math.random().toString(36).substring(2, 8).toUpperCase();
+
+    localStorage.setItem("avmchhai_test_uid", uid);
+
+    alert("✅ Your AVMCHHAI UID is:\n\n" + uid);
+}
+
+window.addEventListener("load", function () {
+    if (!localStorage.getItem("avmchhai_test_uid")) {
+        generateTestUID();
+    }
+});
