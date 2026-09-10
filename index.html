@@ -1,28 +1,265 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AVMCHHAI Safe Chat</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AVMCHHAI Safe Chat</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <header>
-    <h1>AVMCHHAI</h1>
-  </header>
+    <!-- HEADER -->
+    <header class="topbar">
+        <div class="brand">AVMCHHAI</div>
+        <div class="tag">Safe • Secure • Message Only</div>
+    </header>
 
-  <main>
-    <h2>Wellcome to AVMCHHAI</h2>
-    <h3>Safe Chat</h3>
 
-    <p>
-      Welcome to a safe, message-only chat platform.
-    </p>
+    <main>
 
-    <button>Get Started</button>
-  </main>
+        <!-- WELCOME PAGE -->
+        <section id="welcome" class="page active">
+
+            <div class="hero">
+
+                <p class="small">Wellcome to</p>
+
+                <h1>AVMCHHAI</h1>
+
+                <h2>Safe Chat</h2>
+
+                <p>
+                    A safe message-only platform.
+                    No photo, no video and no calls.
+                </p>
+
+                <button onclick="showPage('rules')">
+                    Get Started
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- SAFETY RULES -->
+        <section id="rules" class="page">
+
+            <div class="card">
+
+                <div class="page-brand">
+                    AVMCHHAI
+                </div>
+
+                <h2>Safety Rules</h2>
+
+                <ul class="rules">
+
+                    <li>
+                        Do not share your phone number,
+                        address or school details.
+                    </li>
+
+                    <li>
+                        Never share your password or OTP.
+                    </li>
+
+                    <li>
+                        Be careful when talking to unknown people.
+                    </li>
+
+                    <li>
+                        Do not send suspicious links or payment requests.
+                    </li>
+
+                    <li>
+                        Photos, videos and calls are not allowed.
+                    </li>
+
+                </ul>
+
+                <button onclick="showPage('verify')">
+                    I Understand
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- VERIFICATION -->
+        <section id="verify" class="page">
+
+            <div class="card">
+
+                <div class="page-brand">
+                    AVMCHHAI
+                </div>
+
+                <h2>User Safety Check</h2>
+
+                <p>
+                    Please confirm the safety rules before starting a chat.
+                </p>
+
+                <label>
+                    <input type="checkbox" id="realPerson">
+                    I confirm that I am a real person.
+                </label>
+
+                <label>
+                    <input type="checkbox" id="rulesAgree">
+                    I agree to follow the safety rules.
+                </label>
+
+                <button onclick="startChat()">
+                    Continue to Chat
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- CHAT PAGE -->
+        <section id="chat" class="page">
+
+            <div class="chat-card">
+
+                <div class="page-brand">
+                    AVMCHHAI
+                </div>
+
+                <div class="chat-head">
+                    💬 Unknown User
+                    <span>● Online</span>
+                </div>
+
+                <div class="notice">
+                    ⚠️ Safety Reminder:
+                    Do not share personal information
+                    with unknown people.
+                </div>
+
+
+                <!-- MESSAGES -->
+                <div id="messages" class="messages">
+
+                    <div class="msg received">
+                        Hi! How are you?
+                    </div>
+
+                </div>
+
+
+                <!-- WARNING -->
+                <div id="warning" class="warning hidden"></div>
+
+
+                <!-- MESSAGE BOX -->
+                <div class="composer">
+
+                    <input
+                        id="messageInput"
+                        type="text"
+                        maxlength="500"
+                        placeholder="Type a message..."
+                        onkeydown="handleEnter(event)"
+                    >
+
+                    <button onclick="sendMessage()">
+                        Send
+                    </button>
+
+                </div>
+
+
+                <!-- REPORT -->
+                <button
+                    class="report-btn"
+                    onclick="reportMessage()"
+                >
+                    ⚑ Report Message
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- REPORT PAGE -->
+        <section id="report" class="page">
+
+            <div class="card">
+
+                <div class="page-brand">
+                    AVMCHHAI
+                </div>
+
+                <h2>Report Message</h2>
+
+                <p>
+                    Select the reason for reporting this message:
+                </p>
+
+                <select id="reportReason">
+
+                    <option>
+                        Abusive / Offensive
+                    </option>
+
+                    <option>
+                        Harassment
+                    </option>
+
+                    <option>
+                        Scam / Fraud
+                    </option>
+
+                    <option>
+                        Personal Information
+                    </option>
+
+                    <option>
+                        Suspicious Message
+                    </option>
+
+                    <option>
+                        Other
+                    </option>
+
+                </select>
+
+                <button onclick="submitReport()">
+                    Submit Report
+                </button>
+
+                <p id="reportStatus"></p>
+
+                <br>
+
+                <button onclick="showPage('chat')">
+                    Back to Chat
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+        AVMCHHAI • Safe Messages • Better Connections
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="script.js"></script>
 
 </body>
 </html>
