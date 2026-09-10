@@ -1,1 +1,119 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
+body {
+    font-family: Arial, sans-serif;
+    background: #eef4ff;
+    color: #102a56;
+    min-height: 100vh;
+}
+
+/* Top Header */
+.topbar {
+    background: #063b82;
+    color: white;
+    padding: 18px 30px;
+    text-align: center;
+}
+
+.topbar .brand {
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+/* Main Page */
+main {
+    min-height: calc(100vh - 130px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+/* Welcome Box */
+.hero {
+    width: 100%;
+    max-width: 750px;
+    text-align: center;
+    color: white;
+    background: linear-gradient(135deg, #0758b8, #123b7a);
+    padding: 70px 30px;
+    border-radius: 25px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.20);
+}
+
+.hero .small {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.hero h1 {
+    font-size: 55px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    margin-bottom: 5px;
+}
+
+.hero h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+/* Button */
+button {
+    border: none;
+    background: white;
+    color: #0758b8;
+    padding: 14px 30px;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    transform: scale(1.03);
+}
+
+/* Footer */
+footer {
+    background: #063b82;
+    color: white;
+    text-align: center;
+    padding: 18px;
+    font-weight: bold;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+
+    .topbar .brand {
+        font-size: 25px;
+    }
+
+    .hero {
+        padding: 50px 20px;
+    }
+
+    .hero h1 {
+        font-size: 40px;
+    }
+
+    .hero h2 {
+        font-size: 26px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+}
