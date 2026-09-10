@@ -1,10 +1,40 @@
-function sendMessage() {
-    const input = document.getElementById("messageInput");
-    const message = input.value.trim();
+const pages = ["welcome", "rules", "verify", "chat", "report"];
 
-    if (message === "") {
+function showPage(pageId) {
+    pages.forEach(function(page) {
+        const element = document.getElementById(page);
+
+        if (element) {
+            element.classList.remove("active");
+        }
+    });
+
+    const selectedPage = document.getElementById(pageId);
+
+    if (selectedPage) {
+        selectedPage.classList.add("active");
+    }
+
+    window.scrollTo(0, 0);
+}
+
+
+function startChat() {
+    const realPerson = document.getElementById("realPerson");
+    const rulesAgree = document.getElementById("rulesAgree");
+
+    if (!realPerson.checked || !rulesAgree.checked) {
+        alert(
+            "⚠️ Please complete both safety confirmations before continuing."
+        );
         return;
     }
+
+    showPage("chat");
+}
+
+
+function checkUnsafe(message) {
 
     const unsafePatterns = [
         /\b\d{10}\b/,
@@ -18,57 +48,75 @@ function sendMessage() {
         /https?:\/\//i
     ];
 
-    const isUnsafe = unsafePatterns.some(pattern =>
-        pattern.test(message)
-    );
+    return unsafePatterns.some(function(pattern) {
+        return pattern.test(message);
+    });
+}
 
+
+function sendMessage() {
+
+    const input = document.getElementById("messageInput");
     const warning = document.getElementById("warning");
+    const messages = document.getElementById("messages");
 
-    if (isUnsafe) {
-        warning.textContent =
-            "⚠️ Safety Warning: Please do not share personal information, payment details, OTP, passwords or suspicious links.";
+    const message = input.value.trim();
 
-        warning.style.display = "block";
+    if (message === "") {
         return;
     }
 
-    warning.style.display = "none";
+    if (checkUnsafe(message)) {
+
+        warning.textContent =
+            "⚠️ Safety Warning: Please do not share personal information, OTP, passwords, payment details or suspicious links.";
+
+        warning.classList.remove("hidden");
+
+        return;
+    }
+
+    warning.classList.add("hidden");
 
     const messageBox = document.createElement("div");
-    messageBox.className = "message sent";
+
+    messageBox.className = "msg sent";
     messageBox.textContent = message;
 
-    const messages = document.getElementById("messages");
+    messages.appendChild(messageBox);
 
-    if (messages) {
-        messages.appendChild(messageBox);
-        messages.scrollTop = messages.scrollHeight;
-    }
+    messages.scrollTop = messages.scrollHeight;
 
     input.value = "";
 }
 
 
-function reportMessage() {
-    const reason = prompt(
-        "Why do you want to report this message?\n\n" +
-        "1. Abusive message\n" +
-        "2. Harassment\n" +
-        "3. Scam / Fraud\n" +
-        "4. Personal information\n" +
-        "5. Other"
-    );
+function handleEnter(event) {
 
-    if (reason !== null && reason.trim() !== "") {
-        alert(
-            "Report submitted successfully.\n" +
-            "The message will be reviewed."
-        );
+    if (event.key === "Enter") {
+        sendMessage();
     }
 }
 
 
+function reportMessage() {
+
+    showPage("report");
+}
+
+
+function submitReport() {
+
+    const reason =
+        document.getElementById("reportReason").value;
+
+    document.getElementById("reportStatus").textContent =
+        "✓ Report submitted for review: " + reason;
+}
+
+
 function showSafetyReminder() {
+
     alert(
         "⚠️ AVMCHHAI Safety Reminder\n\n" +
         "Do not share your address, school, phone number, password or OTP with unknown people."
