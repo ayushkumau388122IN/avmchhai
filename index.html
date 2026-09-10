@@ -285,7 +285,7 @@
     try {
       await signInWithPopup(auth, provider);
       alert("✅ Google Sign-in successful!");
-      showPage("chat");
+     showPage("rules");
     } catch (error) {
       alert("❌ Google Sign-in failed: " + error.message);
     }
