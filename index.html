@@ -259,6 +259,38 @@
 
 
     <!-- JAVASCRIPT -->
+    <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+  import {
+    getAuth,
+    GoogleAuthProvider,
+    signInWithPopup
+  } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBJn62s4ChROgSXpoD1bSB37TJtChcGprU",
+    authDomain: "avmchhai-safe-chat.firebaseapp.com",
+    projectId: "avmchhai-safe-chat",
+    storageBucket: "avmchhai-safe-chat.firebasestorage.app",
+    messagingSenderId: "195094735633",
+    appId: "1:195094735633:web:c78f8fc39fd0402f01bab0",
+    measurementId: "G-HZ9WKY3T7B"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  window.googleLogin = async function () {
+    try {
+      await signInWithPopup(auth, provider);
+      alert("✅ Google Sign-in successful!");
+      showPage("chat");
+    } catch (error) {
+      alert("❌ Google Sign-in failed: " + error.message);
+    }
+  };
+</script>
     <button onclick="googleLogin()">🔐 Sign in with Google</button>
     <script src="script.js"></script>
 
