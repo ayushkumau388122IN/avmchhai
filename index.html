@@ -302,7 +302,11 @@ import {
     setDoc,
     runTransaction,
     collection,
-    addDoc
+    addDoc,
+    onSnapshot,
+    query,
+    where,
+    orderBy
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
   const firebaseConfig = {
@@ -325,7 +329,10 @@ window.firebaseDoc = doc;
 window.firebaseGetDoc = getDoc;
 window.firebaseCollection = collection;
 window.firebaseAddDoc = addDoc;
-
+window.firebaseOnSnapshot = onSnapshot;
+window.firebaseQuery = query;
+window.firebaseWhere = where;
+window.firebaseOrderBy = orderBy;
 const provider = new GoogleAuthProvider();
 
   async function createUniqueUID(firebaseUser) {
