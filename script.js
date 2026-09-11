@@ -103,7 +103,14 @@ async function sendMessage() {
                 createdAt: new Date()
             }
         );
+       const messageBox = document.getElementById("messages");
 
+const newMessage = document.createElement("div");
+newMessage.className = "msg sent";
+newMessage.textContent = message;
+
+messageBox.appendChild(newMessage);
+messageBox.scrollTop = messageBox.scrollHeight;
         input.value = "";
 
         console.log("✅ Message saved to Firebase.");
