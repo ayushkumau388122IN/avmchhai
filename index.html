@@ -387,7 +387,11 @@ const provider = new GoogleAuthProvider();
       const firebaseUser = result.user;
 
       const uid = await createUniqueUID(firebaseUser);
-
+window.dispatchEvent(
+    new CustomEvent("firebaseUserReady", {
+        detail: { uid: uid }
+    })
+);
       alert(
         "✅ Google Sign-in successful!\n\n" +
         "Your AVMCHHAI UID is:\n\n" +
