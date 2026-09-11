@@ -295,14 +295,15 @@
     GoogleAuthProvider,
     signInWithPopup
   } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-
-  import {
+import {
     getFirestore,
     doc,
     getDoc,
     setDoc,
-    runTransaction
-  } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+    runTransaction,
+    collection,
+    addDoc
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyBJn62s4ChROgSXpoD1bSB37TJtChcGprU",
@@ -314,13 +315,18 @@
     measurementId: "G-HZ9WKY3T7B"
   };
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-    window.firebaseDB = db;
+    const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+window.firebaseAuth = auth;
+window.firebaseDB = db;
 window.firebaseDoc = doc;
 window.firebaseGetDoc = getDoc;
-  const provider = new GoogleAuthProvider();
+window.firebaseCollection = collection;
+window.firebaseAddDoc = addDoc;
+
+const provider = new GoogleAuthProvider();
 
   async function createUniqueUID(firebaseUser) {
     const userRef = doc(db, "users", firebaseUser.uid);
