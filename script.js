@@ -48,15 +48,14 @@ function checkUnsafe(message) {
         /https?:\/\//i
     ];
 
-    return unsafePatterns.some(function(pattern) {
-        return pattern.test(message);
-    });
+return unsafePatterns.some(function(pattern) {
+    return pattern.test(message);
+});
 }
-function sendMessage() {
+async function sendMessage() {
 
     const input = document.getElementById("messageInput");
     const warning = document.getElementById("warning");
-    const messages = document.getElementById("messages");
 
     const message = input.value.trim();
 
@@ -70,22 +69,54 @@ function sendMessage() {
             "⚠️ Safety Warning: Please do not share personal information, OTP, passwords, payment details or suspicious links.";
 
         warning.classList.remove("hidden");
-
         return;
     }
 
     warning.classList.add("hidden");
 
-    const messageBox = document.createElement("div");
+    const currentUser = window.firebaseAuth.currentUser;
 
-    messageBox.className = "msg sent";
-    messageBox.textContent = message;
+    if (!currentUser) {
+        alert("⚠️ Please sign in with Google first.");
+        return;
+    }
 
-    messages.appendChild(messageBox);
+    const friendUID =
+        document.getElementById("friendUID").value.trim();
 
-    messages.scrollTop = messages.scrollHeight;
+    if (!/^\d{6}$/.test(friendUID)) {
+        alert("⚠️ Please enter your friend's 6-digit UID first.");
+        return;
+    }
 
-    input.value = "";
+    try {
+
+        await window.firebaseAddDoc(
+            window.firebaseCollection(
+                window.firebaseDB,
+                "chats"
+            ),
+            {
+                senderUid: currentUser.uid,
+                receiverUID: friendUID,
+                message: message,
+                createdAt: new Date()
+            }
+        );
+
+        input.value = "";
+
+        console.log("✅ Message saved to Firebase.");
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "❌ Message could not be sent.\n\n" +
+            error.message
+        );
+    }
 }
 
 
