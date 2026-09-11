@@ -187,7 +187,7 @@ window.searchFriendUID = async function () {
         }
 
         resultBox.textContent = "✅ UID found. You can start chatting.";
-
+     window.startRealtimeChat(friendUID);
     } catch (error) {
         console.error(error);
         resultBox.textContent = "❌ Unable to search UID.";
