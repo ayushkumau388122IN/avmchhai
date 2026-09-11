@@ -132,7 +132,35 @@
                 <div class="page-brand">
                     AVMCHHAI
                 </div>
+                <div class="uid-box">
 
+    <h3>My UID</h3>
+
+    <p id="myUID">
+        Your UID will appear here
+    </p>
+
+    <h3>Friends' UID</h3>
+
+    <div class="uid-search">
+
+        <input
+            id="friendUID"
+            type="text"
+            maxlength="6"
+            inputmode="numeric"
+            placeholder="Enter 6-digit UID"
+        >
+
+        <button onclick="searchFriendUID()">
+            Search
+        </button>
+
+    </div>
+
+    <p id="uidSearchResult"></p>
+
+</div>                                
                 <div class="chat-head">
                     💬 Unknown User
                     <span>● Online</span>
