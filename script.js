@@ -10,7 +10,7 @@ function showPage(pageId) {
     });
 
     const selectedPage = document.getElementById(pageId);
-
+ 
     if (selectedPage) {
         selectedPage.classList.add("active");
     }
