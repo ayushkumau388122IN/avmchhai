@@ -204,3 +204,38 @@ window.addEventListener("firebaseUserReady", function(event) {
 
     window.currentAVMCHHAIUID = uid;
 });
+window.startRealtimeChat = function(friendUID) {
+        const myUID = window.currentAVMCHHAIUID;
+
+    if (!myUID || !friendUID) {
+        console.log("UID information is missing.");
+        return;
+    }
+
+    const messagesBox = document.getElementById("messages");
+
+    messagesBox.innerHTML = "";
+
+    const chatQuery = window.firebaseQuery(
+        window.firebaseCollection(window.firebaseDB, "chats"),
+        window.firebaseWhere("receiverUID", "==", myUID)
+    );
+
+    window.firebaseOnSnapshot(chatQuery, function(snapshot) {
+        snapshot.docChanges().forEach(function(change) {
+
+            if (change.type !== "added") {
+                return;
+            }
+
+            const data = change.doc.data();
+
+            const message = document.createElement("div");
+            message.className = "msg received";
+            message.textContent = data.message;
+
+            messagesBox.appendChild(message);
+            messagesBox.scrollTop = messagesBox.scrollHeight;
+        });
+    });
+};
