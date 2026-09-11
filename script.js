@@ -97,7 +97,7 @@ async function sendMessage() {
                 "chats"
             ),
             {
-                senderUid: currentUser.uid,
+                senderUid:window.currentAVMCHHAIUID,
                 receiverUID: friendUID,
                 message: message,
                 createdAt: new Date()
