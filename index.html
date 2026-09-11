@@ -259,13 +259,22 @@
 
 
     <!-- JAVASCRIPT -->
-    <script type="module">
+<script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
   import {
     getAuth,
     GoogleAuthProvider,
     signInWithPopup
   } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+  import {
+    getFirestore,
+    doc,
+    getDoc,
+    setDoc,
+    runTransaction
+  } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyBJn62s4ChROgSXpoD1bSB37TJtChcGprU",
@@ -279,15 +288,73 @@
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
+  const db = getFirestore(app);
   const provider = new GoogleAuthProvider();
+
+  async function createUniqueUID(firebaseUser) {
+    const userRef = doc(db, "users", firebaseUser.uid);
+    const existingUser = await getDoc(userRef);
+
+    if (existingUser.exists() && existingUser.data().avmchhaiUID) {
+      return existingUser.data().avmchhaiUID;
+    }
+
+    for (let attempt = 0; attempt < 20; attempt++) {
+      const newUID = String(Math.floor(Math.random() * 1000000))
+        .padStart(6, "0");
+
+      const uidRef = doc(db, "uidLookup", newUID);
+
+      try {
+        await runTransaction(db, async (transaction) => {
+          const uidDoc = await transaction.get(uidRef);
+
+          if (uidDoc.exists()) {
+            throw new Error("UID_EXISTS");
+          }
+
+          transaction.set(uidRef, {
+            ownerUid: firebaseUser.uid
+          });
+
+          transaction.set(userRef, {
+            avmchhaiUID: newUID,
+            name: firebaseUser.displayName || "",
+            email: firebaseUser.email || ""
+          }, { merge: true });
+        });
+
+        return newUID;
+
+      } catch (error) {
+        if (error.message === "UID_EXISTS") {
+          continue;
+        }
+        throw error;
+      }
+    }
+
+    throw new Error("Could not create a unique UID.");
+  }
 
   window.googleLogin = async function () {
     try {
-      await signInWithPopup(auth, provider);
-      alert("✅ Google Sign-in successful!");
-     showPage("rules");
+      const result = await signInWithPopup(auth, provider);
+      const firebaseUser = result.user;
+
+      const uid = await createUniqueUID(firebaseUser);
+
+      alert(
+        "✅ Google Sign-in successful!\n\n" +
+        "Your AVMCHHAI UID is:\n\n" +
+        uid
+      );
+
+      showPage("rules");
+
     } catch (error) {
-      alert("❌ Google Sign-in failed: " + error.message);
+      console.error(error);
+      alert("❌ Sign-in/UID error:\n" + error.message);
     }
   };
 </script>
