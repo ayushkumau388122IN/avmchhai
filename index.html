@@ -317,6 +317,9 @@
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getFirestore(app);
+    window.firebaseDB = db;
+window.firebaseDoc = doc;
+window.firebaseGetDoc = getDoc;
   const provider = new GoogleAuthProvider();
 
   async function createUniqueUID(firebaseUser) {
