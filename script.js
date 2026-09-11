@@ -217,8 +217,9 @@ window.startRealtimeChat = function(friendUID) {
     messagesBox.innerHTML = "";
 
     const chatQuery = window.firebaseQuery(
-        window.firebaseCollection(window.firebaseDB, "chats"),
-        window.firebaseWhere("receiverUID", "==", myUID)
+    window.firebaseCollection(window.firebaseDB, "chats"),
+    window.firebaseWhere("receiverUID", "==", myUID),
+    window.firebaseWhere("senderUid", "==", friendUID)
     );
 
     window.firebaseOnSnapshot(chatQuery, function(snapshot) {
