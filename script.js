@@ -202,3 +202,14 @@ window.searchFriendUID = async function () {
         resultBox.textContent = "❌ Unable to search UID.";
     }
 };
+window.addEventListener("firebaseUserReady", function(event) {
+    const uid = event.detail.uid;
+
+    const myUIDBox = document.getElementById("myUID");
+
+    if (myUIDBox) {
+        myUIDBox.textContent = uid;
+    }
+
+    window.currentAVMCHHAIUID = uid;
+});
