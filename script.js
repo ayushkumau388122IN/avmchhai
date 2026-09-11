@@ -139,3 +139,37 @@ window.addEventListener("load", function () {
         generateTestUID();
     }
 });
+// Search friend's UID
+window.searchFriendUID = async function () {
+
+    const friendUID = document.getElementById("friendUID").value.trim();
+    const resultBox = document.getElementById("uidSearchResult");
+
+    if (!/^\d{6}$/.test(friendUID)) {
+        resultBox.textContent = "⚠️ Please enter a valid 6-digit UID.";
+        return;
+    }
+
+    resultBox.textContent = "🔎 Searching...";
+
+    try {
+        const uidRef = window.firebaseDoc(
+            window.firebaseDB,
+            "uidLookup",
+            friendUID
+        );
+
+        const uidDoc = await window.firebaseGetDoc(uidRef);
+
+        if (!uidDoc.exists()) {
+            resultBox.textContent = "❌ UID not found.";
+            return;
+        }
+
+        resultBox.textContent = "✅ UID found. You can start chatting.";
+
+    } catch (error) {
+        console.error(error);
+        resultBox.textContent = "❌ Unable to search UID.";
+    }
+};
