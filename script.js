@@ -52,8 +52,6 @@ function checkUnsafe(message) {
         return pattern.test(message);
     });
 }
-
-
 function sendMessage() {
 
     const input = document.getElementById("messageInput");
