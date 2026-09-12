@@ -53,6 +53,7 @@ main {
 .hero {
     width: 100%;
     max-width: 750px;
+    min-height: 430px;
     text-align: center;
     color: white;
  background-image: url("Welcome%20to%20Avmchhai%20Valley.png");
