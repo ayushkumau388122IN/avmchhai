@@ -333,6 +333,13 @@ import {
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+const storage = getStorage(app);
+
+window.firebaseStorage = storage;
+window.firebaseStorageRef = ref;
+window.firebaseUploadBytes = uploadBytes;
+window.firebaseGetDownloadURL = getDownloadURL;
+    
 window.firebaseAuth = auth;
 window.firebaseDB = db;
 window.firebaseDoc = doc;
