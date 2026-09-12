@@ -175,8 +175,36 @@
                     <div class="msg received">
                         Hi! How are you?
                     </div>
+                    </div>
+                    <div class="composer">
 
-                </div>
+    <input
+        id="messageInput"
+        type="text"
+        maxlength="500"
+        placeholder="Type a message..."
+        onkeydown="handleEnter(event)"
+    >
+
+    <button
+        type="button"
+        onclick="document.getElementById('photoInput').click()"
+    >
+        📷
+    </button>
+
+    <input
+        id="photoInput"
+        type="file"
+        accept="image/*"
+        hidden
+    >
+
+    <button onclick="sendMessage()">
+        Send
+    </button>
+
+</div>
 
 
                 <!-- WARNING -->
@@ -184,21 +212,7 @@
 
 
                 <!-- MESSAGE BOX -->
-                <div class="composer">
-
-                    <input
-                        id="messageInput"
-                        type="text"
-                        maxlength="500"
-                        placeholder="Type a message..."
-                        onkeydown="handleEnter(event)"
-                    >
-
-                    <button onclick="sendMessage()">
-                        Send
-                    </button>
-
-                </div>
+                
 
 
                 <!-- REPORT -->
