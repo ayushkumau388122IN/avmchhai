@@ -51,7 +51,7 @@ main {
 
 /* WELCOME */
 .hero {
-    width: 100%;
+     width: 100%;
     max-width: 750px;
     min-height: 430px;
     position: relative;
@@ -65,10 +65,10 @@ background-position: center;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.20);
 }
 
-.hero .small {
-    font-size: 23px;
-    margin-bottom: 8px;
+.hero button {
+    margin-top: 150px;
 }
+
 
 .hero h1 {
     font-size: 58px;
