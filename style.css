@@ -54,6 +54,7 @@ main {
     width: 100%;
     max-width: 750px;
     min-height: 430px;
+    position: relative;
     text-align: center;
     color: white;
  background-image: url("Welcome%20to%20Avmchhai%20Valley.png");
