@@ -1,4 +1,4 @@
-const pages = ["welcome", "rules", "verify", "chat", "report"];
+const pages = ["welcome", "rules", "verify", "chat", "report", "help"];
 
 function showPage(pageId) {
     pages.forEach(function(page) {
@@ -239,4 +239,44 @@ window.startRealtimeChat = function(friendUID) {
             messagesBox.scrollTop = messagesBox.scrollHeight;
         });
     });
+};
+
+window.sendHelpMessage = async function () {
+    const input = document.getElementById("helpMessage");
+    const status = document.getElementById("helpStatus");
+
+    const message = input.value.trim();
+    const currentUser = window.firebaseAuth.currentUser;
+
+    if (!currentUser) {
+        status.textContent = "⚠️ Please sign in with Google first.";
+        return;
+    }
+
+    if (!message) {
+        status.textContent = "⚠️ Please write your problem.";
+        return;
+    }
+
+    try {
+        await window.firebaseAddDoc(
+            window.firebaseCollection(
+                window.firebaseDB,
+                "supportMessages"
+            ),
+            {
+                senderUid: window.currentAVMCHHAIUID || currentUser.uid,
+                message: message,
+                createdAt: new Date()
+            }
+        );
+
+        input.value = "";
+        status.textContent = "✅ Your problem has been sent.";
+
+    } catch (error) {
+        console.error(error);
+        status.textContent =
+            "❌ Could not send your message.";
+    }
 };
