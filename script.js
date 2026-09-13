@@ -331,4 +331,3 @@ window.loadAdminHelpMessages = function () {
     );
 };
 
-window.loadAdminHelpMessages();
