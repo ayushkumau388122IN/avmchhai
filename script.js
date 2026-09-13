@@ -331,3 +331,19 @@ window.loadAdminHelpMessages = function () {
     );
 };
 
+window.openAdminHelp = function () {
+    showPage("adminHelp");
+
+    const box = document.getElementById("adminHelpMessages");
+
+    if (!box) {
+        return;
+    }
+
+    if (!window.firebaseAuth || !window.firebaseAuth.currentUser) {
+        box.textContent = "⚠️ Please sign in first.";
+        return;
+    }
+
+    window.loadAdminHelpMessages();
+};
