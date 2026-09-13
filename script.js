@@ -280,3 +280,48 @@ window.sendHelpMessage = async function () {
             "❌ Could not send your message.";
     }
 };
+
+window.loadAdminHelpMessages = function () {
+    const box = document.getElementById("adminHelpMessages");
+
+    if (!box) return;
+
+    if (!window.firebaseAuth.currentUser) {
+        box.textContent = "⚠️ Please sign in first.";
+        return;
+    }
+
+    const helpQuery = window.firebaseQuery(
+        window.firebaseCollection(
+            window.firebaseDB,
+            "supportMessages"
+        )
+    );
+
+    window.firebaseOnSnapshot(
+        helpQuery,
+        function (snapshot) {
+            box.innerHTML = "";
+
+            if (snapshot.empty) {
+                box.textContent = "No help messages yet.";
+                return;
+
+            }
+
+            snapshot.forEach(function (doc) {
+                const data = doc.data();
+
+                const message = document.createElement("div");
+                message.className = "msg received";
+
+                message.textContent =
+                    "Problem: " + data.message;
+
+                box.appendChild(message);
+            });
+        }
+    );
+};
+
+window.loadAdminHelpMessages();
