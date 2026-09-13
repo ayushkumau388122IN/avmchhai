@@ -286,10 +286,17 @@ window.loadAdminHelpMessages = function () {
 
     if (!box) return;
 
+    const ADMIN_EMAIL = "ayushkumau388122@gmail.com";
+
     if (!window.firebaseAuth.currentUser) {
         box.textContent = "⚠️ Please sign in first.";
         return;
     }
+
+    if (window.firebaseAuth.currentUser.email !== ADMIN_EMAIL) {
+    box.textContent = "❌ Access denied. Admin only.";
+    return;
+}
 
     const helpQuery = window.firebaseQuery(
         window.firebaseCollection(
