@@ -1,4 +1,4 @@
-const pages = ["welcome", "rules", "verify", "chat", "report", "help"];
+const pages = ["welcome", "rules", "verify", "chat", "report", "help", "adminHelp"];
 
 function showPage(pageId) {
     pages.forEach(function(page) {
