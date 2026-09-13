@@ -200,7 +200,13 @@
 
 
                 <!-- MESSAGE BOX -->
-                
+                <!-- NEED HELP -->
+<button
+    class="help-btn"
+    onclick="showPage('help')"
+>
+    🆘 Need Help?
+</button>
 
 
                 <!-- REPORT -->
@@ -215,6 +221,43 @@
 
         </section>
 
+        
+<!-- HELP PAGE -->
+<section id="help" class="page">
+
+    <div class="card">
+
+        <div class="page-brand">
+            AVMCHHAI
+        </div>
+
+        <h2>Need Help?</h2>
+
+        <p>
+            Tell us about your problem.
+        </p>
+
+        <textarea
+            id="helpMessage"
+            maxlength="1000"
+            placeholder="Write your problem here..."
+        ></textarea>
+
+        <button onclick="sendHelpMessage()">
+            Send Problem
+        </button>
+
+        <p id="helpStatus"></p>
+
+        <br>
+
+        <button onclick="showPage('chat')">
+            Back to Chat
+        </button>
+
+    </div>
+
+</section>
 
         <!-- REPORT PAGE -->
         <section id="report" class="page">
