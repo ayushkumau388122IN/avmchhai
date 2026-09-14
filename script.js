@@ -392,10 +392,11 @@ window.loadAdminHelpMessages = function () {
                 box.appendChild(message);
             });
         },
-        function (error) {
-            console.error(error);
-            box.textContent =
-                "❌ Could not load help messages.";
-        }
+    function (error) {
+    console.error("ADMIN HELP ERROR:", error);
+    box.textContent =
+        "❌ " + error.code + " — " + error.message;
+}
+        
     );
 };
