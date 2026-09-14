@@ -281,55 +281,10 @@ window.sendHelpMessage = async function () {
     }
 };
 
-window.loadAdminHelpMessages = function () {
-    const box = document.getElementById("adminHelpMessages");
 
-    if (!box) return;
 
-    const ADMIN_EMAIL = "ayushkumau388122@gmail.com";
 
-    if (!window.firebaseAuth.currentUser) {
-        box.textContent = "⚠️ Please sign in first.";
-        return;
-    }
-
-    if (window.firebaseAuth.currentUser.email !== ADMIN_EMAIL) {
-    box.textContent = "❌ Access denied. Admin only.";
-    return;
-}
-
-    const helpQuery = window.firebaseQuery(
-        window.firebaseCollection(
-            window.firebaseDB,
-            "supportMessages"
-        )
-    );
-
-    window.firebaseOnSnapshot(
-        helpQuery,
-        function (snapshot) {
-            box.innerHTML = "";
-
-            if (snapshot.empty) {
-                box.textContent = "No help messages yet.";
-                return;
-
-            }
-
-            snapshot.forEach(function (doc) {
-                const data = doc.data();
-
-                const message = document.createElement("div");
-                message.className = "msg received";
-
-                message.textContent =
-                    "Problem: " + data.message;
-
-                box.appendChild(message);
-            });
-        }
-    );
-};
+    
 
 window.openAdminHelp = function () {
     showPage("adminHelp");
