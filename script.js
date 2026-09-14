@@ -347,3 +347,55 @@ window.openAdminHelp = function () {
 
     window.loadAdminHelpMessages();
 };
+
+window.loadAdminHelpMessages = function () {
+    const box = document.getElementById("adminHelpMessages");
+
+    if (!box) {
+        return;
+    }
+
+    if (!window.firebaseAuth || !window.firebaseAuth.currentUser) {
+        box.textContent = "⚠️ Please sign in first.";
+        return;
+    }
+
+    const helpQuery = window.firebaseQuery(
+        window.firebaseCollection(
+            window.firebaseDB,
+            "supportMessages"
+        )
+    );
+
+    window.firebaseOnSnapshot(
+        helpQuery,
+        function (snapshot) {
+            box.innerHTML = "";
+
+            if (snapshot.empty) {
+                box.textContent = "No help messages yet.";
+                return;
+            }
+
+            snapshot.forEach(function (doc) {
+                const data = doc.data();
+
+                const message = document.createElement("div");
+                message.className = "msg received";
+
+                message.textContent =
+                    "User: " +
+                    (data.senderUid || "Unknown") +
+                    "\nProblem: " +
+                    (data.message || "");
+
+                box.appendChild(message);
+            });
+        },
+        function (error) {
+            console.error(error);
+            box.textContent =
+                "❌ Could not load help messages.";
+        }
+    );
+};
