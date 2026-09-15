@@ -258,6 +258,64 @@ window.sendHelpMessage = async function () {
         return;
     }
 
+    // WhatsApp message
+    const whatsappNumber = "916207956233";
+
+    const whatsappMessage =
+        "🔐 AVMCHHAI Safe Chat - Need Help\n\n" +
+        "User UID: " +
+        (window.currentAVMCHHAIUID || "Unknown") +
+        "\n\nProblem:\n" +
+        message;
+
+    const whatsappURL =
+        "https://wa.me/" +
+        whatsappNumber +
+        "?text=" +
+        encodeURIComponent(whatsappMessage);
+
+    // Open WhatsApp
+    window.open(whatsappURL, "_blank");
+
+    // Save problem in Firestore
+    try {
+        await window.firebaseAddDoc(
+            window.firebaseCollection(
+                window.firebaseDB,
+                "supportMessages"
+            ),
+            {
+                senderUid:
+                    window.currentAVMCHHAIUID || currentUser.uid,
+                message: message,
+                createdAt: new Date()
+            }
+        );
+
+        input.value = "";
+        status.textContent =
+            "✅ WhatsApp opened. Please press Send there.";
+
+    } catch (error) {
+        console.error(error);
+        status.textContent =
+            "⚠️ WhatsApp opened, but the problem could not be saved.";
+    
+    const status = document.getElementById("helpStatus");
+
+    const message = input.value.trim();
+    const currentUser = window.firebaseAuth.currentUser;
+
+    if (!currentUser) {
+        status.textContent = "⚠️ Please sign in with Google first.";
+        return;
+    }
+
+    if (!message) {
+        status.textContent = "⚠️ Please write your problem.";
+        return;
+    }
+
     try {
         await window.firebaseAddDoc(
             window.firebaseCollection(
