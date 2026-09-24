@@ -1,3 +1,4 @@
+console.log("AVMCHHAI SCRIPT LOADED");
 const pages = ["welcome", "rules", "verify", "chat", "report", "help", "adminHelp"];
 
 function showPage(pageId) {
